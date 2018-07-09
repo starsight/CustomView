@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CustomView</string>
+    <string name="title_ThumbUpView">点赞</string>
+</resources>
