@@ -465,8 +465,8 @@ public class ThumbUpView extends View {
         valueAnimator.setDuration(time);
         valueAnimator.setInterpolator(new LinearInterpolator());
         //无限循环
-        valueAnimator.setRepeatCount(0);
-        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        //valueAnimator.setRepeatCount(0);
+        //valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
