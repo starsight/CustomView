@@ -19,7 +19,7 @@ public class BooheeRuler extends ViewGroup {
     //内部的尺子
     private InnerRuler mInnerRuler;
     //最小最大刻度值(以0.1kg为单位)
-    private int mMinScale = 464, mMaxScale = 2000;
+    int mMinScale = 464, mMaxScale = 2000;
     //中间光标画笔
     private Paint mCPaint, mOutLinePaint;
     //光标宽度、高度

@@ -162,6 +162,11 @@ public class InnerRuler extends View {
 
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
+                if(isMax()||isMin()){
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                }else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
                 if (!mOverScroller.isFinished()) {
                     mOverScroller.abortAnimation();
                 }
@@ -298,6 +303,13 @@ public class InnerRuler extends View {
 
     public float getCurrentScale() {
         return mCurrentScale;
+    }
+
+    public boolean isMin(){
+        return mCurrentScale <=mParent.mMinScale;
+    }
+    public boolean isMax(){
+        return mCurrentScale >=mParent.mMaxScale;
     }
 
 }
