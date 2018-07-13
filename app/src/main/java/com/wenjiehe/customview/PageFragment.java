@@ -12,6 +12,7 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.wenjiehe.customview.view.FlipView;
 import com.wenjiehe.customview.view.JiKeThumbUpView;
 import com.wenjiehe.customview.view.ruler.BooheeRuler;
 import com.wenjiehe.customview.view.ruler.KgNumberLayout;
@@ -28,6 +29,8 @@ public class PageFragment extends Fragment {
     private EditText editText;
     private Button buttonNum;
     private JiKeThumbUpView jiKeThumbUpView;
+
+    private FlipView flipview;
 
     @LayoutRes
     int sampleLayoutRes;
@@ -62,6 +65,14 @@ public class PageFragment extends Fragment {
                 public void onClick(View v) {
                     int num = Integer.valueOf(editText.getText().toString().trim());
                     jiKeThumbUpView.setCount(num).setThumbUp(false);
+                }
+            });
+        }else if(sampleLayoutRes == R.layout.layout_flipview){
+            flipview = view.findViewById(R.id.flipview);
+            flipview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    flipview.start();
                 }
             });
         }

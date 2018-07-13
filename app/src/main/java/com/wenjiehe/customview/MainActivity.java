@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
     {
         pageModels.add(new PageModel(R.layout.layout_thumbupview, R.string.title_ThumbUpView));
-        pageModels.add(new PageModel(R.layout.layout_ruler, R.string.title_RulerView));
         pageModels.add(new PageModel(R.layout.layout_jikethumbupview, R.string.title_JiKeThumbUpView));
+        pageModels.add(new PageModel(R.layout.layout_ruler, R.string.title_RulerView));
+        pageModels.add(new PageModel(R.layout.layout_flipview, R.string.tittle_FlipView));
     }
 
     @Override

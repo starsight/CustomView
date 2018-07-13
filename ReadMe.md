@@ -42,3 +42,5 @@
 由于项目使用ViewPager，而薄荷尺也是横移，所以还需要做一个滑动处理。这里使用内部拦截法完成，在ACTION_MOVE时，使用requestDisallowInterceptTouchEvent(true);让父类不拦截，如果子类发现已经滑到直尺左右极限则把事件交还给父类。
 
 #### Flipboard旋转动画
+
+属性动画。两个要注意的点，camera位置后移，防止旋转时拉伸过大；旋转时同时旋转Y轴和Z轴。
