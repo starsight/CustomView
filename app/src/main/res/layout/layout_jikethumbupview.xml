@@ -5,14 +5,28 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.wenjiehe.customview.view.JiKeThumbUpView
-        android:id="@+id/thumbview1"
+        android:id="@+id/jikethumbview"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         app:cracksColor="#FFFFFF"
         app:edgeColor="@color/colorPrimary"
         app:fillColor="#ff3030"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_below="@id/jikethumbview"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/button_num"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/edit_text"
+        android:text="@string/button_change_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

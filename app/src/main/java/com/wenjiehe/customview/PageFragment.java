@@ -9,6 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.wenjiehe.customview.view.JiKeThumbUpView;
+import com.wenjiehe.customview.view.ruler.BooheeRuler;
+import com.wenjiehe.customview.view.ruler.KgNumberLayout;
 
 
 /**
@@ -16,6 +22,12 @@ import android.view.ViewStub;
  */
 public class PageFragment extends Fragment {
 
+    private BooheeRuler mBooheeRuler;
+    private KgNumberLayout mKgNumberLayout;
+
+    private EditText editText;
+    private Button buttonNum;
+    private JiKeThumbUpView jiKeThumbUpView;
 
     @LayoutRes
     int sampleLayoutRes;
@@ -37,6 +49,23 @@ public class PageFragment extends Fragment {
         sampleStub.setLayoutResource(sampleLayoutRes);
         sampleStub.inflate();
 
+        if(sampleLayoutRes==R.layout.layout_ruler){
+            mBooheeRuler =  view.findViewById(R.id.br);
+            mKgNumberLayout = view.findViewById(R.id.knl);
+            mKgNumberLayout.bindRuler(mBooheeRuler);
+        }else if(sampleLayoutRes == R.layout.layout_jikethumbupview){
+            editText = view.findViewById(R.id.edit_text);
+            buttonNum = view.findViewById(R.id.button_num);
+            jiKeThumbUpView = view.findViewById(R.id.jikethumbview);
+            buttonNum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int num = Integer.valueOf(editText.getText().toString().trim());
+                    jiKeThumbUpView.setCount(num).setThumbUp(false);
+                }
+            });
+        }
+
         return view;
     }
 
@@ -47,6 +76,7 @@ public class PageFragment extends Fragment {
         if (args != null) {
             sampleLayoutRes = args.getInt("sampleLayoutRes");
         }
+
     }
 
 }

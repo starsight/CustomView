@@ -262,7 +262,7 @@ public class ThumbUpView extends View {
 
     }
 
-    // 取消点赞第二补，心破碎时，两瓣心向左右分别旋转13度
+    // 取消点赞第二步，心破碎时，两瓣心向左右分别旋转13度
     private void drawBrokenLove(Canvas canvasMain, float mAnimatedBrokenValue) {
         Canvas canvas = null;
         RectF rectFlove = new RectF();

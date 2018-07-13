@@ -162,21 +162,22 @@ public class InnerRuler extends View {
 
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                if(isMax()||isMin()){
-                    getParent().requestDisallowInterceptTouchEvent(false);
-                }else {
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                }
+
                 if (!mOverScroller.isFinished()) {
                     mOverScroller.abortAnimation();
                 }
-
+                getParent().requestDisallowInterceptTouchEvent(true);
                 mLastX = currentX;
                 break;
             case MotionEvent.ACTION_MOVE:
                 float moveX = mLastX - currentX;
                 mLastX = currentX;
                 scrollBy((int)(moveX),0);
+                if(isMax()||isMin()){
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                }else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 //处理松手后的Fling
