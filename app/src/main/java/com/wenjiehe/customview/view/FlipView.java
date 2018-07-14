@@ -3,10 +3,12 @@ package com.wenjiehe.customview.view;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -51,7 +53,6 @@ public class FlipView extends View {
         float newZ = -displayMetrics.density * 6;
         camera.setLocation(0, 0, newZ);
 
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.map);
 
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(this, "degreeY", 0, -45);
         animator1.setDuration(1000);
@@ -78,14 +79,23 @@ public class FlipView extends View {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if(set.isRunning()){
+        if (set.isRunning()) {
             set.end();
         }
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        //bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+        bitmap = decodeSampleBitmapFromResourece(getResources(), R.drawable.flipboard_logo, 150, 150);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
+
         super.onDraw(canvas);
+        //这里400和200换成你自己想要的长和宽
 
         int bitmapWidth = bitmap.getWidth();
         int bitmapHeight = bitmap.getHeight();
@@ -163,4 +173,56 @@ public class FlipView extends View {
         invalidate();
         set.start();
     }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        if (widthSpecMode == MeasureSpec.AT_MOST
+                && heightSpecMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(dip2px(400), dip2px(400));
+        } else if (widthSpecMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(heightSpecSize, heightSpecSize);
+        } else if (heightSpecMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(widthSpecSize, widthSpecSize);
+        }
+    }
+
+    private int dip2px(float dpValue) {
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    public Bitmap decodeSampleBitmapFromResourece(Resources res, int resId, int Width, int Height) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+        options.inSampleSize = calculateInSampleSize(options, Width, Height);
+        options.inJustDecodeBounds = false;
+
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
+    public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        int sampleSize = 1;
+        final int h = options.outHeight;
+        final int w = options.outWidth;
+
+        if (h > reqWidth || w > reqHeight) {
+            int halfHeight = h / 2;
+            int halfWidth = w / 2;
+
+            while ((halfHeight / sampleSize) >= reqHeight && (halfWidth / sampleSize) >= reqWidth) {
+                sampleSize *= 2;
+            }
+        }
+
+        return sampleSize;
+    }
+
 }
